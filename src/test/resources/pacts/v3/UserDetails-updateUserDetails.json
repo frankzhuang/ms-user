@@ -1,0 +1,65 @@
+{
+  "provider": {
+    "name": "UserDetails_provider"
+  },
+  "consumer": {
+    "name": "FRONT END"
+  },
+  "interactions": [
+    {
+      "description": "UPDATE REQUEST FOR USER DETAILS",
+      "request": {
+        "method": "PUT",
+        "path": "/1",
+        "headers": {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          "Authorization": "Basic YWRtaW46YWRtaW4="
+        },
+        "body": {
+          "title": "MR",
+          "firstName": "John",
+          "lastName": "Smith",
+          "gender": "M",
+          "address": {
+            "street": "61 Margaret St",
+            "city": "Sydney",
+            "state": "NSW",
+            "postCode": "2000"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "title": "MR",
+          "firstName": "John",
+          "lastName": "Smith",
+          "gender": "M",
+          "address": {
+            "street": "61 Margaret St",
+            "city": "Sydney",
+            "state": "NSW",
+            "postCode": "2000"
+          }
+        }
+      },
+      "providerStates": [
+        {
+          "name": "User service running"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "pact-specification": {
+      "version": "3.0.0"
+    },
+    "pact-jvm": {
+      "version": "3.6.15"
+    }
+  }
+}

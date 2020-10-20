@@ -1,0 +1,52 @@
+{
+  "provider": {
+    "name": "UserDetails_provider"
+  },
+  "consumer": {
+    "name": "FRONT END"
+  },
+  "interactions": [
+    {
+      "description": "GET REQUEST FOR USER DETAILS",
+      "request": {
+        "method": "GET",
+        "path": "/1",
+        "headers": {
+          "Accept": "application/json",
+          "Authorization": "Basic dXNlcjpwYXNzd29yZA=="
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "title": "MR",
+          "firstName": "John",
+          "lastName": "Smith",
+          "gender": "M",
+          "address": {
+            "street": "60 Margaret St",
+            "city": "Sydney",
+            "state": "NSW",
+            "postCode": "2000"
+          }
+        }
+      },
+      "providerStates": [
+        {
+          "name": "User service running"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "pact-specification": {
+      "version": "3.0.0"
+    },
+    "pact-jvm": {
+      "version": "3.6.15"
+    }
+  }
+}

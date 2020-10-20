@@ -1,0 +1,56 @@
+logging:
+    level:
+        root: INFO
+        sql: DEBUG
+        web: DEBUG
+server:
+    port: 8080
+    servlet:
+        context-path: /api
+spring:
+    cloud:
+        circuitbreaker:
+            resilience4j:
+                enabled: true
+    datasource:
+        driver-class-name: org.h2.Driver
+        initialization-mode: embedded
+        initialize: true
+        password: ''
+        platform: h2
+        show-sql: true
+        url: jdbc:h2:mem:userDb
+        username: sa
+    jpa:
+        database-platform: org.hibernate.dialect.H2Dialect
+        generate-ddl: true
+        hibernate:
+            ddl-auto: update
+        properties:
+            hiberate:
+                show_sql: false
+            hibernate:
+                format_sql: false
+                use_sql_comments: false
+        show-sql: true
+
+resilience4j:
+    circuitbreaker:
+        configs:
+            default:
+                registerHealthIndicator: true
+                slidingWindowSize: 10
+                minimumNumberOfCalls: 5
+                permittedNumberOfCallsInHalfOpenState: 30
+                automaticTransitionFromOpenToHalfOpenEnabled: true
+                waitDurationInOpenState: 5s
+                failureRateThreshold: 50
+                eventConsumerBufferSize: 10
+                recordExceptions:
+                    - org.springframework.dao.QueryTimeoutException
+                    - org.hibernate.exception.JDBCConnectionException
+                    - java.util.concurrent.TimeoutException
+                    - java.io.IOException
+        instances:
+            mainService:
+                baseConfig: default
