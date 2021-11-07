@@ -33,6 +33,8 @@ spring:
                 format_sql: false
                 use_sql_comments: false
         show-sql: true
+        defer-datasource-initialization: true
+
 
 resilience4j:
     circuitbreaker:
