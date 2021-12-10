@@ -1,8 +1,10 @@
 package com.frank.user.service.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.validation.constraints.NotBlank;
+
 import lombok.Data;
+
+import javax.validation.constraints.NotBlank;
 
 @Data
 @JsonInclude(JsonInclude.Include.ALWAYS)
