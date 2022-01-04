@@ -3,6 +3,10 @@ logging:
         root: INFO
         sql: DEBUG
         web: DEBUG
+        org:
+            springframework:
+                boot:
+                    autoconfigure: DEBUG
 server:
     port: 8080
     servlet:
@@ -34,7 +38,8 @@ spring:
                 use_sql_comments: false
         show-sql: true
         defer-datasource-initialization: true
-
+    main:
+        lazy-initialization: false
 
 resilience4j:
     circuitbreaker:
