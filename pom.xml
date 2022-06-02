@@ -23,6 +23,10 @@
 		<junit.jupiter.version>5.8.2</junit.jupiter.version>
 		<junit.commons.version>1.5.2</junit.commons.version>
 <!--		<log4j2.version>2.17.2</log4j2.version>-->
+		<spring-cloud-starter-circuitbreaker-resilience4j.version>2.1.2</spring-cloud-starter-circuitbreaker-resilience4j.version>
+		<micrometer.version>1.9.0</micrometer.version>
+		<h2.version>2.1.212</h2.version>
+		<unboundid-ldapsdk.version>6.0.5</unboundid-ldapsdk.version>
 	</properties>
 
 	<dependencies>
@@ -49,6 +53,7 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
+			<version>${spring-cloud-starter-circuitbreaker-resilience4j.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -57,10 +62,12 @@
 		<dependency>
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-core</artifactId>
+			<version>${micrometer.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-registry-prometheus</artifactId>
+			<version>${micrometer.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -71,6 +78,7 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
+			<version>${h2.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -97,6 +105,7 @@
 		<dependency>
 			<groupId>com.unboundid</groupId>
 			<artifactId>unboundid-ldapsdk</artifactId>
+			<version>${unboundid-ldapsdk.version}</version>
 			<scope>test</scope>
 		</dependency>
 <!--		<dependency>-->
