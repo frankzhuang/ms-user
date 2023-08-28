@@ -3,25 +3,51 @@ package com.frank.user.pact.v3;
 import au.com.dius.pact.provider.junit.Provider;
 import au.com.dius.pact.provider.junit.State;
 import au.com.dius.pact.provider.junit.loader.PactFolder;
-import au.com.dius.pact.provider.junit.target.HttpTarget;
-import au.com.dius.pact.provider.junit.target.Target;
-import au.com.dius.pact.provider.junit.target.TestTarget;
-import au.com.dius.pact.provider.spring.SpringRestPactRunner;
+import au.com.dius.pact.provider.junit5.HttpTestTarget;
+import au.com.dius.pact.provider.junit5.PactVerificationContext;
+import au.com.dius.pact.provider.junit5.PactVerificationInvocationContextProvider;
 import com.frank.user.MsUserApplication;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestTemplate;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.boot.SpringApplication;
+import org.springframework.web.context.ConfigurableWebApplicationContext;
 
-
-@RunWith(SpringRestPactRunner.class)
-@SpringBootTest(classes = MsUserApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @PactFolder("pacts/v3")
 @Provider("UserDetails_provider")
 public class UserDetailsPactTest {
-    @TestTarget
-    public final Target target = new HttpTarget("http", "localhost", 8080, "/api/userdetails");
+
+    private static ConfigurableWebApplicationContext application;
+
+    @BeforeAll
+    public static void start() {
+        application = (ConfigurableWebApplicationContext) SpringApplication.run(MsUserApplication.class);
+    }
+
+    @BeforeEach
+    void before(PactVerificationContext context) {
+        context.setTarget(new HttpTestTarget("localhost", 8080, "/api/userdetails"));
+    }
+
+    @TestTemplate
+    @ExtendWith(PactVerificationInvocationContextProvider.class)
+    void pactVerificationTestTemplate(PactVerificationContext context) {
+        context.verifyInteraction();
+    }
 
     @State("User service running")
-    public void toGetStates() {
+    public void toInfo() {
 
     }
+
+    @State("test GET")
+    public void toGetState() {
+    }
+
+    @State("test POST")
+    public void toPostState() {
+    }
+
 }
+

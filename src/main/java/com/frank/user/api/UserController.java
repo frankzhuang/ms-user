@@ -5,7 +5,6 @@ import com.frank.user.mapper.UserMapper;
 import com.frank.user.service.UserService;
 import com.frank.user.service.dto.User;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.FieldError;
@@ -27,10 +26,12 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Validated
 @Slf4j
 public class UserController {
-    @Autowired
-    UserService userService;
+    public UserController(UserService userService, UserMapper userMapper) {
+        this.userService = userService;
+        this.userMapper = userMapper;
+    }
 
-    @Autowired
+    private UserService userService;
     private UserMapper userMapper;
 
     @PreAuthorize("hasAuthority('ROLE_USER')")

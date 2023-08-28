@@ -1,9 +1,9 @@
 package com.frank.user.mapper;
 
-import com.frank.user.jpa.UserDab;
-import com.frank.user.service.dto.User;
 import com.frank.user.jpa.AddressDab;
+import com.frank.user.jpa.UserDab;
 import com.frank.user.service.dto.Address;
+import com.frank.user.service.dto.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;

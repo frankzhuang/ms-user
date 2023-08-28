@@ -1,24 +1,24 @@
 package com.frank.user.api;
 
-import com.frank.user.service.dto.User;
 import com.frank.user.jpa.AddressDab;
 import com.frank.user.jpa.UserDab;
 import com.frank.user.mapper.UserMapper;
 import com.frank.user.service.UserService;
 import com.frank.user.service.dto.Address;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import com.frank.user.service.dto.User;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class UserControllerTest {
     @InjectMocks
     UserController userController;
@@ -35,7 +35,7 @@ public class UserControllerTest {
     User user;
     Address address;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
 
         addressDab = new AddressDab();
@@ -66,10 +66,10 @@ public class UserControllerTest {
         User user1 = userController.getUserDetails(1l);
         verify(userService).getUser(1L);
 
-        assertEquals(user1.getFirstName(), user.getFirstName());
-        assertEquals(user1.getLastName(), user.getLastName());
-        assertEquals(user1.getAddress().getCity(), user.getAddress().getCity());
-        assertEquals(user1.getAddress().getStreet(), user.getAddress().getStreet());
+        assertTrue(user1.getFirstName().equals(user.getFirstName()));
+        assertTrue(user1.getLastName().equals(user.getLastName()));
+        assertTrue(user1.getAddress().getCity().equals(user.getAddress().getCity()));
+        assertTrue(user1.getAddress().getStreet().equals(user.getAddress().getStreet()));
 
     }
 
@@ -81,10 +81,10 @@ public class UserControllerTest {
         User user1 = userController.createUserDetails(user);
         verify(userService).saveUser(userDab);
 
-        assertEquals(user1.getFirstName(), user.getFirstName());
-        assertEquals(user1.getLastName(), user.getLastName());
-        assertEquals(user1.getAddress().getCity(), user.getAddress().getCity());
-        assertEquals(user1.getAddress().getStreet(), user.getAddress().getStreet());
+        assertTrue(user1.getFirstName().equals(user.getFirstName()));
+        assertTrue(user1.getLastName().equals(user.getLastName()));
+        assertTrue(user1.getAddress().getCity().equals(user.getAddress().getCity()));
+        assertTrue(user1.getAddress().getStreet().equals(user.getAddress().getStreet()));
 
     }
 
@@ -96,10 +96,10 @@ public class UserControllerTest {
         User user1 = userController.updateUserDetail(1l, user);
         verify(userService).saveUser(userDab);
 
-        assertEquals(user1.getFirstName(), user.getFirstName());
-        assertEquals(user1.getLastName(), user.getLastName());
-        assertEquals(user1.getAddress().getCity(), user.getAddress().getCity());
-        assertEquals(user1.getAddress().getStreet(), user.getAddress().getStreet());
+        assertTrue(user1.getFirstName().equals(user.getFirstName()));
+        assertTrue(user1.getLastName().equals(user.getLastName()));
+        assertTrue(user1.getAddress().getCity().equals(user.getAddress().getCity()));
+        assertTrue(user1.getAddress().getStreet().equals(user.getAddress().getStreet()));
 
     }
 }

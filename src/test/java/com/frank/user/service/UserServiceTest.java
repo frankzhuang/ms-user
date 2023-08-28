@@ -1,21 +1,22 @@
 package com.frank.user.service;
 
-import com.frank.user.jpa.UserDab;
 import com.frank.user.jpa.AddressDab;
+import com.frank.user.jpa.UserDab;
 import com.frank.user.jpa.UserRepository;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
     @InjectMocks
     private UserService userService;
@@ -26,7 +27,7 @@ public class UserServiceTest {
     UserDab userDab;
     AddressDab addressDab;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
 
         addressDab = new AddressDab();
@@ -47,23 +48,23 @@ public class UserServiceTest {
         UserDab userDab1 = userService.getUser(1l);
         verify(userRepository).getOne(1L);
 
-        assertEquals(userDab1.getFirstName(), userDab.getFirstName());
-        assertEquals(userDab1.getLastName(), userDab.getLastName());
-        assertEquals(userDab1.getAddress().getCity(), userDab.getAddress().getCity());
-        assertEquals(userDab1.getAddress().getStreet(), userDab.getAddress().getStreet());
+        assertTrue(userDab1.getFirstName().equals(userDab.getFirstName()));
+        assertTrue(userDab1.getLastName().equals(userDab.getLastName()));
+        assertTrue(userDab1.getAddress().getCity().equals(userDab.getAddress().getCity()));
+        assertTrue(userDab1.getAddress().getStreet().equals(userDab.getAddress().getStreet()));
 
     }
 
     @Test
     public void saveUser() {
-        when(userRepository.saveAndFlush(any(UserDab.class))).thenReturn(userDab);
+        given(userRepository.saveAndFlush(any(UserDab.class))).willReturn(userDab);
 
         UserDab userDab1 = userService.saveUser(userDab);
         verify(userRepository).saveAndFlush(any(UserDab.class));
 
-        assertEquals(userDab1.getFirstName(), userDab.getFirstName());
-        assertEquals(userDab1.getLastName(), userDab.getLastName());
-        assertEquals(userDab1.getAddress().getCity(), userDab.getAddress().getCity());
-        assertEquals(userDab1.getAddress().getStreet(), userDab.getAddress().getStreet());
+        assertTrue(userDab1.getFirstName().equals(userDab.getFirstName()));
+        assertTrue(userDab1.getLastName().equals(userDab.getLastName()));
+        assertTrue(userDab1.getAddress().getCity().equals(userDab.getAddress().getCity()));
+        assertTrue(userDab1.getAddress().getStreet().equals(userDab.getAddress().getStreet()));
     }
 }
