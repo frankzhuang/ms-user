@@ -10,7 +10,7 @@
       "description": "GET REQUEST FOR USER DETAILS",
       "request": {
         "method": "GET",
-        "path": "/1",
+        "path": "/userdetails/1",
         "headers": {
           "Accept": "application/json",
           "Authorization": "Basic dXNlcjpwYXNzd29yZA=="

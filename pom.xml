@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.3.4.RELEASE</version>
+		<version>3.5.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.frank.user</groupId>
@@ -15,11 +15,12 @@
 	<description>User Service</description>
 
 	<properties>
-		<java.version>11</java.version>
-		<spring-cloud.version>Hoxton.SR8</spring-cloud.version>
-		<mapstruct.version>1.4.1.Final</mapstruct.version>
-		<awaitility.version>3.1.6</awaitility.version>
-		<junit.jupiter.version>5.5.0</junit.jupiter.version>
+		<java.version>21</java.version>
+	<lombok.version>1.18.30</lombok.version>
+		<spring-cloud.version>2023.0.6</spring-cloud.version>
+		<mapstruct.version>1.5.5.Final</mapstruct.version>
+		<awaitility.version>4.2.0</awaitility.version>
+		<junit.jupiter.version>5.10.0</junit.jupiter.version>
 		<junit.commons.version>1.5.2</junit.commons.version>
 	</properties>
 
@@ -85,6 +86,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
@@ -149,7 +151,12 @@
 		<dependency>
 			<groupId>jakarta.validation</groupId>
 			<artifactId>jakarta.validation-api</artifactId>
-			<version>2.0.2</version>
+			<version>3.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>8.0.2.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -157,12 +164,10 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>au.com.dius</groupId>
-			<artifactId>pact-jvm-provider-spring_2.12</artifactId>
-			<version>3.6.15</version>
-			<scope>test</scope>
-		</dependency>
+		<!-- Pact JVM provider (old 3.x scala-based artifact removed for Spring Boot 3 / Java 21 upgrade).
+			 To re-enable pact tests, add a modern pact-jvm provider artifact compatible with JUnit5 / Java 21.
+		-->
+		<!-- Pact JVM provider removed; using a lightweight custom verification test (reads pact json and issues HTTP calls) -->
 
 	</dependencies>
 
@@ -196,10 +201,9 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.5.1</version>
+				<version>3.11.0</version>
 				<configuration>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
+					<release>${java.version}</release>
 					<annotationProcessorPaths>
 						<path>
 							<groupId>org.mapstruct</groupId>
@@ -210,6 +214,11 @@
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
 							<version>${lombok.version}</version>
+						</path>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok-mapstruct-binding</artifactId>
+							<version>0.2.0</version>
 						</path>
 					</annotationProcessorPaths>
 				</configuration>

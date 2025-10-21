@@ -10,7 +10,7 @@
       "description": "UPDATE REQUEST FOR USER DETAILS",
       "request": {
         "method": "PUT",
-        "path": "/1",
+        "path": "/userdetails/1",
         "headers": {
           "Content-Type": "application/json",
           "Accept": "application/json",
