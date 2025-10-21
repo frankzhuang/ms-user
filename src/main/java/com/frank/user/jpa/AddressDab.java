@@ -2,7 +2,7 @@ package com.frank.user.jpa;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Data
