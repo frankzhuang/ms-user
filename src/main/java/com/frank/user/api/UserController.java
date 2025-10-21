@@ -7,15 +7,20 @@ import com.frank.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
-
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -35,7 +40,8 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    // require ROLE_USER (use hasRole with role name, Spring adds ROLE_ prefix)
+    @PreAuthorize("hasRole('USER')")
     @GetMapping(value = "/{userId}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public User getUserDetails(@PathVariable("userId") @Min(value = 1, message = "UserId must be great than 0") Long userId) {
@@ -48,7 +54,8 @@ public class UserController {
         return user;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    // require ADMIN role
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "/", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public User createUserDetails(@Valid @RequestBody User user) {
@@ -61,7 +68,7 @@ public class UserController {
         return user;
     }
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping(value = "/{userId}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public User updateUserDetail(@PathVariable("userId") @Min(value = 1, message = "UserId must be great than 0") Long userId, @Valid @RequestBody User user) {

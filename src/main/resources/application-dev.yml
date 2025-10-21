@@ -1,0 +1,8 @@
+spring:
+  security:
+    user:
+      name: devuser
+      password: devpassword
+  security-admin:
+    name: admin
+    password: admin

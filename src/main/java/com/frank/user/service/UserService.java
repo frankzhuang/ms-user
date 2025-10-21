@@ -20,9 +20,9 @@ public class UserService {
     @Transactional
     public UserDab getUser(Long userId) {
         log.debug("userId={}", userId);
-        UserDab userDab = userRepository.getOne(userId);
+        UserDab userDab = userRepository.findById(userId).orElseThrow(() -> new com.frank.user.exception.ResourceNotFoundException("User not found: " + userId));
         log.debug("getUser End");
-        
+
         return userDab;
     }
 
