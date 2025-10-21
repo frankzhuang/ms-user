@@ -1,5 +1,6 @@
 package com.frank.user.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -18,26 +19,31 @@ public class ApiSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable()
+        return http
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/userdetails/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
-                .httpBasic();
-        return http.build();
+                .httpBasic(basic -> {})
+                .build();
     }
 
     @Bean
-    public UserDetailsService users() {
+    public UserDetailsService users(
+            @Value("${spring.security.user.name:user}") String devUser,
+            @Value("${spring.security.user.password:password}") String devPassword,
+            @Value("${spring.security-admin.name:admin}") String adminUser,
+            @Value("${spring.security-admin.password:admin}") String adminPassword
+    ) {
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        UserDetails user = User.withUsername("user")
-                .password(encoder.encode("password"))
+        UserDetails user = User.withUsername(devUser)
+                .password(encoder.encode(devPassword))
                 .roles("USER")
                 .build();
 
-        UserDetails admin = User.withUsername("admin")
-                .password(encoder.encode("admin"))
+        UserDetails admin = User.withUsername(adminUser)
+                .password(encoder.encode(adminPassword))
                 .roles("USER", "ADMIN")
                 .build();
 

@@ -27,9 +27,8 @@ spring:
         hibernate:
             ddl-auto: create
         properties:
-            hiberate:
-                show_sql: false
             hibernate:
+                show_sql: false
                 format_sql: false
                 use_sql_comments: false
         defer-datasource-initialization: true

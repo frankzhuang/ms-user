@@ -1,12 +1,11 @@
 package com.frank.user.mapper;
 
+import com.frank.user.jpa.AddressDab;
 import com.frank.user.jpa.UserDab;
 import com.frank.user.service.dto.Address;
 import com.frank.user.service.dto.User;
-import com.frank.user.jpa.AddressDab;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Named;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {

@@ -6,19 +6,18 @@ import com.frank.user.jpa.UserDab;
 import com.frank.user.mapper.UserMapper;
 import com.frank.user.service.UserService;
 import com.frank.user.service.dto.Address;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class UserControllerTest {
     @InjectMocks
     UserController userController;
@@ -35,7 +34,7 @@ public class UserControllerTest {
     User user;
     Address address;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
 
         addressDab = new AddressDab();
@@ -63,14 +62,23 @@ public class UserControllerTest {
         when(userService.getUser(1L)).thenReturn(userDab);
         when(userMapper.map(userDab)).thenReturn(user);
 
-        User user1 = userController.getUserDetails(1l);
+        User user1 = userController.getUserDetails(1L);
         verify(userService).getUser(1L);
 
         assertEquals(user1.getFirstName(), user.getFirstName());
         assertEquals(user1.getLastName(), user.getLastName());
         assertEquals(user1.getAddress().getCity(), user.getAddress().getCity());
         assertEquals(user1.getAddress().getStreet(), user.getAddress().getStreet());
+    }
 
+    @Test
+    public void getUserDetails_LoggingTest() {
+        // This test ensures logging code is covered
+        when(userService.getUser(2L)).thenReturn(userDab);
+        when(userMapper.map(userDab)).thenReturn(user);
+
+        User user1 = userController.getUserDetails(2L);
+        assertEquals(user1.getFirstName(), user.getFirstName());
     }
 
     @Test
