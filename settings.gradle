@@ -1,0 +1,4 @@
+rootProject.name = 'ms-user'
+
+// Use Gradle's Java toolchain to target Java 21
+
